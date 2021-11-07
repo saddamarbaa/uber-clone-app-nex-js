@@ -54,7 +54,7 @@ const SearchPageComponent: React.FunctionComponent = () => {
 					<SavedPlacesButton> Saved Places</SavedPlacesButton>
 				</SavedPlaces>
 				<ConfirmButtonContainer>
-					<Link href='/confirm'>
+					<Link href='/'>
 						<ConfirmButton>Confirm Location</ConfirmButton>
 					</Link>
 				</ConfirmButtonContainer>

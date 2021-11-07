@@ -4,15 +4,24 @@ import Link from "next/link";
 import React from "react";
 import tw from "tailwind-styled-components";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../config/firebase";
+
 const ActionItems: React.FunctionComponent = () => {
+	const [user] = useAuthState(auth);
 	return (
 		<Wrapper>
 			<Container>
 				<Header>
 					<UberLogo src='/images/upberlog2.jpg' alt='Uber Logo' />
 					<ProfileContainer>
-						<Name>Saddam Arbaa</Name>
-						<UserImage src='/images/saddam2.jpg' alt='User Logo' />
+						<Name>{user?.displayName}</Name>
+						<UserImage
+							src={
+								user?.photoURL ? user?.photoURL : "/images/tem-img.png"
+							}
+							alt='User Logo'
+						/>
 					</ProfileContainer>
 				</Header>
 
@@ -42,7 +51,9 @@ const ActionItems: React.FunctionComponent = () => {
 						Reserve
 					</ActionButton>
 				</ActionsButtons>
-				<InputButton>Where to go?</InputButton>
+				<Link href='/search'>
+					<InputButton>Where to go?</InputButton>
+				</Link>
 			</Container>
 		</Wrapper>
 	);
@@ -65,7 +76,8 @@ h-28
 const ProfileContainer = tw.div`
 flex items-center space-x-4 `;
 
-const Name = tw.div``;
+const Name = tw.div`
+font-bold`;
 
 const UserImage = tw.img`
 h-12 w-12 rounded-full border border-gray-200 p-px cursor-pointer`;
@@ -80,4 +92,4 @@ const ActionImage = tw.img`
 h-24 `;
 
 const InputButton = tw.div`
-h-20 bg-gray-200 text-2xl p-4  items-center mt-8 rounded-lg shadow-sm  max-w-[410px]`;
+h-20 bg-gray-200 text-2xl p-4  items-center mt-8 rounded-lg shadow-sm  max-w-[410px] cursor-pointer`;
